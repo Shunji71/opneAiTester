@@ -5,7 +5,18 @@ function ImgPage() {
   const [message, setMessage] = useState('')
 
   const imgClick = async () => {
-   // ここでAPI呼び出しを行う
+    // BFFを呼び出す
+    try {
+      const response = await fetch('http://localhost:3001/api/img')
+      if (!response.ok) {
+        throw new Error('Network response was not ok')
+      }
+      const data = await response.json()
+      setMessage(data.message)
+    } catch (error) {
+      console.error('API呼び出しに失敗:', error)
+      setMessage('API呼び出しに失敗しました')
+    }
   }
 
   return (
